@@ -144,3 +144,4 @@
 /home/ec2-user/HiSUP_Project/HiSUP/obj/Debug/net8.0/HiSUP.pdb
 /home/ec2-user/HiSUP_Project/HiSUP/obj/Debug/net8.0/HiSUP.genruntimeconfig.cache
 /home/ec2-user/HiSUP_Project/HiSUP/obj/Debug/net8.0/ref/HiSUP.dll
+/home/ec2-user/HiSUP_Project/HiSUP/obj/Debug/net8.0/HiSUP.sourcelink.json

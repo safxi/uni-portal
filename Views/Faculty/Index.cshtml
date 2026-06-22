@@ -1,0 +1,45 @@
+@model List<Dictionary<string, string>>
+<div class="container mt-4 animate__animated animate__fadeIn">
+    <h2 class="fw-bold text-dark mb-4"><i class="bi bi-person-workspace text-danger me-2"></i>Faculty Academic Performance Sheet</h2>
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success border-0 shadow-sm animate__animated animate__bounceIn">@TempData["SuccessMessage"]</div>
+    }
+
+    <div class="card premium-card p-4 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Assigned Course</th>
+                        <th>Instructor</th>
+                        <th style="width: 150px;">Marks Log</th>
+                        <th style="width: 150px;">Attendance %</th>
+                        <th>Execution Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var row in Model)
+                    {
+                        <tr>
+                            <form asp-action="GradeStudent" method="post">
+                                <input type="hidden" name="studentId" value="@row["StudentID"]" />
+                                <input type="hidden" name="courseCode" value="@row["CourseCode"]" />
+                                <td><span class="badge bg-secondary">ID: @row["StudentID"]</span></td>
+                                <td><strong>@row["CourseTitle"]</strong><br><small class="text-muted">@row["CourseCode"]</small></td>
+                                <td><span class="text-primary">@row["Faculty"]</span></td>
+                                var currentMarks = row.ContainsKey("Marks") ? row["Marks"] : "0";
+                                var currentAtt = row.ContainsKey("Attendance") ? row["Attendance"] : "100";
+                                <td><input type="number" name="marks" class="form-control form-control-sm" value="@currentMarks" max="100" /></td>
+                                <td><input type="text" name="attendance" class="form-control form-control-sm" value="@currentAtt" /></td>
+                                <td><button type="submit" class="btn btn-sm btn-danger fw-bold"><i class="bi bi-save me-1"></i> Update Metrics</button></td>
+                            </form>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

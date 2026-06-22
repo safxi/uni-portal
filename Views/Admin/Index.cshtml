@@ -1,46 +1,51 @@
+@using HiSUP.Data
 <div class="container mt-4 animate__animated animate__fadeIn">
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success border-0 shadow-sm rounded-3 animate__animated animate__bounceIn">
+        <div class="alert alert-success border-0 shadow-sm animate__animated animate__bounceIn">
             <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
         </div>
     }
 
-    <div class="card premium-card p-5 mb-5 border-start border-primary border-4 shadow-sm">
-        <div class="d-flex align-items-center mb-4">
-            <div class="p-3 bg-primary bg-opacity-10 text-primary rounded-3 me-3"><i class="bi bi-shield-lock fs-2"></i></div>
-            <div>
-                <h2 class="fw-bold mb-0">System Administrative Operations Console</h2>
-                <p class="text-muted mb-0">Manage system-wide structures, process CSV batch inputs, and monitor system execution plans.</p>
+    <div class="row g-4">
+        <!-- Add New Student Panel -->
+        <div class="col-md-6">
+            <div class="card premium-card p-4 border-top border-primary border-4 shadow-sm">
+                <h4 class="fw-bold text-primary mb-3"><i class="bi bi-person-plus-fill me-2"></i>Onboard New Student</h4>
+                <form asp-action="CreateStudent" method="post">
+                    <div class="mb-3"><label class="form-label small fw-bold">First Name</label><input type="text" name="firstName" class="form-control" required /></div>
+                    <div class="mb-3"><label class="form-label small fw-bold">Last Name</label><input type="text" name="lastName" class="form-control" required /></div>
+                    <div class="mb-3"><label class="form-label small fw-bold">University Email Target</label><input type="email" name="email" class="form-control" required /></div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">Provision Student Identity</button>
+                </form>
             </div>
         </div>
 
-        <div class="row g-4 mt-2">
-            <div class="col-md-6">
-                <div class="p-4 border rounded-3 bg-light">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-file-earmark-spreadsheet text-success me-2"></i>Bulk Student CSV Ledger Import</h5>
-                    <p class="small text-muted">Upload bulk student records directly parsing via relational database target <code>MERGE</code> loops safely.</p>
-                    <form asp-action="BulkImport" method="post" enctype="multipart/form-data">
-                        <div class="mb-3"><input type="file" name="csvFile" class="form-control" required /></div>
-                        <button type="submit" class="btn btn-success w-100 fw-bold"><i class="bi bi-cloud-arrow-up-fill me-1"></i>Execute Bulk MERGE Statements</button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <div class="p-4 border rounded-3 bg-light h-100">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-eye-fill text-warning me-2"></i>Database Live Audit Monitor</h5>
-                    <div class="table-responsive small" style="max-height: 150px;">
-                        <table class="table table-sm table-hover text-muted">
-                            <thead><tr><th>Timestamp</th><th>User</th><th>Action</th></tr></thead>
-                            <tbody>
-                                <tr><td>Just Now</td><td>db_admin</td><td>ALTER PROCEDURE RegisterStudent</td></tr>
-                                <tr><td>5 mins ago</td><td>saif_ec2</td><td>INSERT INTO AuditLog (Students)</td></tr>
-                                <tr><td>12 mins ago</td><td>db_finance</td><td>SELECT FROM vw_FeeDefaulters</td></tr>
-                            </tbody>
-                        </table>
+        <!-- Allocation Engine Panel -->
+        <div class="col-md-6">
+            <div class="card premium-card p-4 border-top border-success border-4 shadow-sm">
+                <h4 class="fw-bold text-success mb-3"><i class="bi bi-journal-bookmark-fill me-2"></i>Course Allocation Manager</h4>
+                <form asp-action="AssignCourse" method="post">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Select Active Course Node</label>
+                        <select name="course" class="form-select">
+                            @foreach(var c in DatabaseRepository.GlobalCourses){ <option>@c</option> }
+                        </select>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Assign Faculty Resource</label>
+                        <select name="faculty" class="form-select">
+                            @foreach(var f in DatabaseRepository.GlobalFaculty){ <option>@f</option> }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Target Student Identity Mapping</label>
+                        <select name="studentId" class="form-select">
+                            @foreach(var s in DatabaseRepository.Students){ <option value="@s["ID"]">@s["Name"] (ID: @s["ID"])</option> }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 fw-bold">Lock Resource Matrix Map</button>
+                </form>
             </div>
         </div>
     </div>
