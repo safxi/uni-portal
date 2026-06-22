@@ -5,16 +5,13 @@ namespace HiSUP.Controllers
 {
     public class FacultyController : Controller
     {
-        public IActionResult Index()
-        {
-            return View(DatabaseRepository.Assigns);
-        }
+        public IActionResult Index() => View(DatabaseRepository.Assigns);
 
         [HttpPost]
-        public IActionResult GradeStudent(int studentId, string courseCode, string marks, string attendance)
+        public IActionResult GradeStudent(int studentId, string courseCode, string s1, string s2, string quizzes, string finalExam, string attendance)
         {
-            DatabaseRepository.UpdateStudentPerformance(studentId, courseCode, marks, attendance);
-            TempData["SuccessMessage"] = "Student attendance vectors and evaluation grades updated in real-time!";
+            DatabaseRepository.UpdateHitecPerformance(studentId, courseCode, s1, s2, quizzes, finalExam, attendance);
+            TempData["SuccessMessage"] = "HITEC Relative Grading Parameters sync successfully updated!";
             return RedirectToAction(nameof(Index));
         }
     }

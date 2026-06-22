@@ -22,9 +22,15 @@ namespace HiSUP.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignCourse(string course, string faculty, int studentId)
         {
-            var repoImpl = _repo as DatabaseRepository;
-            await repoImpl.AssignCourseToFacultyAndStudent(course, faculty, studentId);
-            TempData["SuccessMessage"] = "Course map and teacher allocation dispatched successfully!";
+            if (_repo is DatabaseRepository repoImpl)
+            {
+                await repoImpl.AssignCourseToFacultyAndStudent(course, faculty, studentId);
+                TempData["SuccessMessage"] = "Course map and teacher allocation dispatched successfully!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Repository mismatch instance state anomaly caught.";
+            }
             return RedirectToAction(nameof(Index));
         }
     }

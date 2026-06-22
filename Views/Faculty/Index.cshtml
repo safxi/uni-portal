@@ -1,6 +1,6 @@
 @model List<Dictionary<string, string>>
 <div class="container mt-4 animate__animated animate__fadeIn">
-    <h2 class="fw-bold text-dark mb-4"><i class="bi bi-person-workspace text-danger me-2"></i>Faculty Academic Performance Sheet</h2>
+    <h3 class="fw-bold text-dark mb-4"><i class="bi bi-person-workspace text-danger me-2"></i>HITEC Multi-Evaluation Component Grading System</h3>
     
     @if (TempData["SuccessMessage"] != null)
     {
@@ -9,33 +9,43 @@
 
     <div class="card premium-card p-4 shadow-sm">
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-dark">
+            <table class="table align-middle">
+                <thead class="table-dark text-center small">
                     <tr>
-                        <th>Student ID</th>
-                        <th>Assigned Course</th>
-                        <th>Instructor</th>
-                        <th style="width: 150px;">Marks Log</th>
-                        <th style="width: 150px;">Attendance %</th>
-                        <th>Execution Action</th>
+                        <th>ID</th>
+                        <th>Course</th>
+                        <th>Sess I (15)</th>
+                        <th>Sess II (15)</th>
+                        <th>Quiz/Ass (20)</th>
+                        <th>Final (50)</th>
+                        <th>Att %</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach(var row in Model)
                     {
                         <tr>
-                            <form asp-action="GradeStudent" method="post">
-                                <input type="hidden" name="studentId" value="@row["StudentID"]" />
-                                <input type="hidden" name="courseCode" value="@row["CourseCode"]" />
-                                <td><span class="badge bg-secondary">ID: @row["StudentID"]</span></td>
-                                <td><strong>@row["CourseTitle"]</strong><br><small class="text-muted">@row["CourseCode"]</small></td>
-                                <td><span class="text-primary">@row["Faculty"]</span></td>
-                                var currentMarks = row.ContainsKey("Marks") ? row["Marks"] : "0";
-                                var currentAtt = row.ContainsKey("Attendance") ? row["Attendance"] : "100";
-                                <td><input type="number" name="marks" class="form-control form-control-sm" value="@currentMarks" max="100" /></td>
-                                <td><input type="text" name="attendance" class="form-control form-control-sm" value="@currentAtt" /></td>
-                                <td><button type="submit" class="btn btn-sm btn-danger fw-bold"><i class="bi bi-save me-1"></i> Update Metrics</button></td>
-                            </form>
+                            <td colspan="8" class="p-0 border-0">
+                                <form asp-action="GradeStudent" method="post" class="m-0">
+                                    <input type="hidden" name="studentId" value="@row["StudentID"]" />
+                                    <input type="hidden" name="courseCode" value="@row["CourseCode"]" />
+                                    <table class="table table-borderless align-middle m-0 text-center small">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 8%; text-align: left;"><span class="badge bg-secondary">ID: @row["StudentID"]</span></td>
+                                                <td style="width: 26%; text-align: left;"><strong>@row["CourseTitle"]</strong></td>
+                                                <td style="width: 11%;"><input type="number" name="s1" class="form-control form-control-sm text-center" value="@row["Sessional1"]" max="15" /></td>
+                                                <td style="width: 11%;"><input type="number" name="s2" class="form-control form-control-sm text-center" value="@row["Sessional2"]" max="15" /></td>
+                                                <td style="width: 11%;"><input type="number" name="quizzes" class="form-control form-control-sm text-center" value="@row["Quizzes"]" max="20" /></td>
+                                                <td style="width: 11%;"><input type="number" name="finalExam" class="form-control form-control-sm text-center" value="@row["FinalExam"]" max="50" /></td>
+                                                <td style="width: 11%;"><input type="text" name="attendance" class="form-control form-control-sm text-center" value="@row["Attendance"]" /></td>
+                                                <td style="width: 11%;"><button type="submit" class="btn btn-sm btn-danger fw-bold w-100"><i class="bi bi-save"></i> Save</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

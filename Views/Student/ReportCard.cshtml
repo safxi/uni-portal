@@ -1,40 +1,63 @@
 @using System.Data
 @model DataTable
 <div class="container mt-4 animate__animated animate__fadeIn">
-    <h2 class="fw-bold text-dark mb-4"><i class="bi bi-award-fill text-warning me-2"></i>My Real-time Enrolled Courses & Attendance Portal</h2>
-    <div class="row g-4">
-        <div class="col-lg-12">
-            <div class="card premium-card p-4 shadow-sm">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Code</th>
-                                <th>Course Title Description</th>
-                                <th>Assigned Teacher</th>
-                                <th class="text-center">Obtained Marks</th>
-                                <th class="text-center">My Attendance Log</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (DataRow row in Model.Rows)
-                            {
-                                <tr>
-                                    <td><span class="badge bg-secondary">@row["CourseCode"]</span></td>
-                                    <td class="fw-semibold">@row["CourseTitle"]</td>
-                                    <td class="text-primary">@row["Faculty"]</td>
-                                    <td class="text-center fw-bold font-monospace text-success">@row["ObtainedMarks"] / 100</td>
-                                    <td class="text-center">
-                                        <div class="progress" style="height: 20px;">
-                                            <div class="progress-bar bg-info text-dark fw-bold" role="progressbar" style="width: @row["Attendance"]%;">@row["Attendance"]%</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="p-4 mb-4 text-white rounded-3 shadow-sm" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <h2 class="fw-bold mb-1"><i class="bi bi-shield-check text-info me-2"></i>HITEC Multi-Component Academic Summary Matrix</h2>
+        <p class="mb-0 text-white-50 small">Subjected to standard 75% system compliance regulation thresholds parameters.</p>
+    </div>
+
+    <div class="card premium-card p-4 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center small">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-start">Course Metadata</th>
+                        <th>Sess I (15)</th>
+                        <th>Sess II (15)</th>
+                        <th>Quiz/Ass (20)</th>
+                        <th>Finals (50)</th>
+                        <th>Agg. Total</th>
+                        <th style="width: 15%;">Attendance Stream</th>
+                        <th>Status Block</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Rows)
+                    {
+                        double attPercent = Convert.ToDouble(row["Attendance"]);
+                        bool isDetained = attPercent < 75.0;
+
+                        <tr>
+                            <td class="text-start">
+                                <strong>@row["CourseTitle"]</strong><br>
+                                <small class="text-muted font-monospace">@row["CourseCode"] | @row["Faculty"]</small>
+                            </td>
+                            <td class="font-monospace">@row["Sessional1"]</td>
+                            <td class="font-monospace">@row["Sessional2"]</td>
+                            <td class="font-monospace">@row["Quizzes"]</td>
+                            <td class="font-monospace">@row["FinalExam"]</td>
+                            <td><span class="badge bg-primary fs-6 px-3">@row["TotalMarks"] / 100</span></td>
+                            <td>
+                                <div class="progress" style="height: 18px;">
+                                    <div class="progress-bar @(isDetained ? "bg-danger" : "bg-success") text-white fw-bold" role="progressbar" style="width: @row["Attendance"]%;">
+                                        @row["Attendance"]%
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @if (isDetained)
+                                {
+                                    <span class="badge bg-danger p-2 text-uppercase animate__animated animate__flash animate__infinite w-100"><i class="bi bi-exclamation-triangle-fill me-1"></i> Detained</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success p-2 text-uppercase w-100"><i class="bi bi-check-circle-fill me-1"></i> Eligible</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

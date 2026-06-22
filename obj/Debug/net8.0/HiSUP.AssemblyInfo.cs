@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HiSUP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20d31a0cc26ba441d1ed804f5fda987d761c8465")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7393361b6c33b41242f1b2235f03cdccc16259bb")]
 [assembly: System.Reflection.AssemblyProductAttribute("HiSUP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HiSUP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
