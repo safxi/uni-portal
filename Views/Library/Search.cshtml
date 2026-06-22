@@ -1,0 +1,86 @@
+@using System.Data
+@model DataTable
+
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <div class="card premium-card shadow border-0 overflow-hidden">
+        <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+            <h3 class="mb-0 fw-bold"><i class="bi bi-collection-play me-2"></i>HiSUP Enterprise Digital Library Gateway</h3>
+            <p class="mb-0 text-white-50 small mt-1">Execute high-speed Full-Text indexing catalogue search over 10,000+ volumes seamlessly.</p>
+        </div>
+        <div class="card-body p-5">
+            <form asp-action="Search" method="get" class="row g-3 justify-content-center mb-5">
+                <div class="col-md-9">
+                    <input type="text" name="query" class="form-control form-control-lg border-2 shadow-sm" placeholder="Enter keywords, author indices, ISBN strings (e.g. SQL Server, T-SQL)..." required value="@Context.Request.Query["query"]" />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn gradient-btn-primary btn-lg w-100 py-2.5 shadow"><i class="bi bi-search me-2"></i>Run Lookup</button>
+                </div>
+            </form>
+
+            @if (Model != null && Model.Rows.Count > 0)
+            {
+                <div class="table-responsive animate__animated animate__fadeInUp">
+                    <table class="table table-striped table-hover align-middle border">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="p-3">Asset Serial</th>
+                                <th class="p-3">Title Nomenclature</th>
+                                <th class="p-3">Author Context</th>
+                                <th class="p-3">Database Verification Ledger</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td class="p-3"><strong>@row["ItemID"]</strong></td>
+                                    <td class="p-3 fw-semibold text-primary">@row["Title"]</td>
+                                    <td class="p-3">@row["Author"]</td>
+                                    <td class="p-3"><span class="badge bg-success bg-opacity-10 text-success px-3 py-2"><i class="bi bi-check-circle-fill me-1"></i> Available</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="mt-4">
+                    <h5 class="fw-bold mb-3 text-secondary"><i class="bi bi-info-circle me-2 text-info"></i>Featured Recommended Volumes (Catalogue Ledger Logs)</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Asset ID</th>
+                                    <th>Standard Title Name</th>
+                                    <th>Author Ledger</th>
+                                    <th>Status Flag</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>LIB-8022</strong></td>
+                                    <td><span class="text-primary fw-semibold">Itzik Ben-Gan: T-SQL Querying & Database Optimization</span></td>
+                                    <td>Microsoft Press</td>
+                                    <td><span class="badge bg-success">Available In Room 3</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LIB-4011</strong></td>
+                                    <td><span class="text-primary fw-semibold">Andrew Lock: ASP.NET Core in Action (3rd Edition)</span></td>
+                                    <td>Manning Publications</td>
+                                    <td><span class="badge bg-success">Available In Section C</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LIB-1109</strong></td>
+                                    <td><span class="text-primary fw-semibold">Database Systems: Design, Implementation, & Management</span></td>
+                                    <td>Carlos Coronel</td>
+                                    <td><span class="badge bg-danger bg-opacity-10 text-danger text-uppercase px-2 py-1 small fw-bold">Issued Logged</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

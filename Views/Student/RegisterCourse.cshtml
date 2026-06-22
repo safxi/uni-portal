@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Course Registration Platform";
+}
+
+<div class="container mt-5 animate__animated animate__fadeInUp">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card premium-card border-0 shadow-lg">
+                <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border-top-left-radius: 16px; border-top-right-radius: 16px;">
+                    <h3 class="mb-0 fw-bold"><i class="bi bi-journal-plus me-2"></i>Academic Course Registration Console</h3>
+                    <p class="mb-0 text-white-50 small mt-1">Select active modules for your current semester track allocation.</p>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="RegisterCourse" method="post">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark fs-5">Available Course Packages (Fall 2026)</label>
+                            <p class="text-muted small">The registration cycles operate under atomic multi-layered transactional safeguards to secure enrollment configurations.</p>
+                            
+                            <div class="form-check p-3 mb-3 border rounded-3 bg-light hover-shadow" style="transition: all 0.2s;">
+                                <input class="form-check-input ms-1" type="radio" name="sectionId" id="course1" value="101" checked required>
+                                <label class="form-check-input-label ms-4 d-block" for="course1">
+                                    <strong class="text-primary">CS-318: Advanced Database Management Systems</strong>
+                                    <span class="d-block text-muted small">Section A | Lab Included | Instructor: CS Department Faculty | Remaining Seats: 12</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check p-3 mb-3 border rounded-3 bg-light hover-shadow" style="transition: all 0.2s;">
+                                <input class="form-check-input ms-1" type="radio" name="sectionId" id="course2" value="201">
+                                <label class="form-check-input-label ms-4 d-block" for="course2">
+                                    <strong class="text-success">SE-402: Software Automated Testing</strong>
+                                    <span class="d-block text-muted small">Section B | Practical Evaluation Unit | Instructor: Quality Eng. Lead | Remaining Seats: 5</span>
+                                </label>
+                            </div>
+
+                            <div class="form-check p-3 mb-3 border rounded-3 bg-light hover-shadow" style="transition: all 0.2s;">
+                                <input class="form-check-input ms-1" type="radio" name="sectionId" id="course3" value="301">
+                                <label class="form-check-input-label ms-4 d-block" for="course3">
+                                    <strong class="text-dark">CS-412: Mobile App Development using Flutter & Dart</strong>
+                                    <span class="d-block text-muted small">Section A | Project Aggregation Track | Remaining Seats: 18</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-3 mt-5">
+                            <button type="submit" class="btn btn-success btn-lg py-3 fw-bold shadow"><i class="bi bi-cloud-check-fill me-2"></i>Confirm Real-time Atomic Registration</button>
+                            <a asp-action="Dashboard" class="btn btn-outline-secondary py-2">Cancel and Exit Console</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

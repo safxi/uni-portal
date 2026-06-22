@@ -1,0 +1,107 @@
+@using System.Data
+@model DataTable
+
+<div class="container mt-5 animate__animated animate__fadeIn">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-3 animate__animated animate__bounceIn" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-3 animate__animated animate__shakeX" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-0"><i class="bi bi-speedometer2 text-primary me-2"></i>Student Central Workspace</h2>
+            <p class="text-muted mb-0">Real-time database records and academic transactions logs mapping.</p>
+        </div>
+        <span class="badge bg-dark px-3 py-2 rounded-pill shadow-sm"><i class="bi bi-clock me-1 text-warning"></i> Active Session: Fall 2026</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-7">
+            <div class="card premium-card p-4 mb-4">
+                <h5 class="fw-bold mb-3 text-secondary"><i class="bi bi-person-lines-fill me-2 text-primary"></i>Live Database View Identity Matrix</h5>
+                <div class="table-responsive">
+                    <table class="table table-borderless align-middle mb-0">
+                        <thead class="table-light rounded-3">
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Full Name Identifier</th>
+                                <th>Registered Email</th>
+                                <th>Current Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Rows.Count > 0)
+                            {
+                                @foreach (DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-secondary">#@row["StudentID"]</span></td>
+                                        <td class="fw-semibold">@row["FirstName"] @row["LastName"]</td>
+                                        <td>@row["Email"]</td>
+                                        <td><span class="badge bg-success bg-opacity-10 text-success px-3 py-2">Active Enrolled</span></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><span class="badge bg-secondary">#1</span></td>
+                                    <td class="fw-semibold">Saif Ur Rehman</td>
+                                    <td>saif.student@hitec.edu.pk</td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success px-3 py-2">Active Demo Enrolled</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <a asp-action="RegisterCourse" class="btn gradient-btn-primary w-100 py-3 shadow-sm"><i class="bi bi-journal-check me-2"></i>Register New Course</a>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-controller="Library" asp-action="Search" class="btn btn-dark w-100 py-3 shadow-sm"><i class="bi bi-book me-2"></i>Access Library Ledger</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card premium-card p-4 bg-dark text-white shadow-lg border-0 h-100" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                <h5 class="fw-bold mb-2 text-info"><i class="bi bi-wallet2 me-2"></i>ACID Fee Clearance Node</h5>
+                <p class="text-white-50 small mb-4">Submit institutional tuition settlements securely routing via isolation architecture parameters.</p>
+                
+                <div class="bg-white bg-opacity-10 p-3 rounded-3 mb-4 text-center">
+                    <span class="text-white-50 d-block small uppercase tracking-wider">PENDING CURRENT BALANCES</span>
+                    <h2 class="fw-bold text-warning mb-0 animate__animated animate__pulse animate__infinite">PKR 45,500</h2>
+                </div>
+
+                <form asp-action="PayFees" method="post">
+                    <div class="mb-3">
+                        <label class="form-label text-white-50 small">Specify Clearance Amount (PKR)</label>
+                        <input type="number" name="amount" class="form-control bg-transparent text-white border-secondary" placeholder="e.g. 15000" min="1000" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-white-50 small">Choose Secure Clearing Gateway Channel</label>
+                        <select name="paymentMode" class="form-select bg-transparent text-white border-secondary" required>
+                            <option value="HBL-Online" class="text-dark">HBL Internet Banking Gateway</option>
+                            <option value="NayaPay" class="text-dark">NayaPay Digital Wallet Clearing</option>
+                            <option value="EasyPaisa" class="text-dark">EasyPaisa Instant Ledger Network</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-info w-100 py-2.5 fw-bold text-dark shadow-sm"><i class="bi bi-shield-lock-fill me-2">Execute Atomic Payment Settlement</i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
